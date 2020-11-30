@@ -11,7 +11,7 @@ import AddPassword from '../containers/AddPassword.js';
 class PasswordList extends React.Component {
   render() {
     return (
-      <ListGroup>
+      <ListGroup data-testid="password-list">
         <ListGroup.Item>
           <Row>
             <Col xs={3} lg={4}>Name</Col>
@@ -26,8 +26,6 @@ class PasswordList extends React.Component {
         <ListGroup.Item>
           <VerifyPassword name="abc000" salt="2644047a-eca9-4858-8282-048480983051" hash="a02d" hashMethod="sha512;last4"/>
         </ListGroup.Item>
-        <ListGroup.Item><VerifyPassword /></ListGroup.Item>
-        <ListGroup.Item><VerifyPassword /></ListGroup.Item>
       </ListGroup>
     );
   }

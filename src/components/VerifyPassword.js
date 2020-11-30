@@ -17,7 +17,12 @@ const VerifyPassword = props => {
     <Row>
       <Col xs={3} lg={4}>{props.name}</Col>
       <Col xs={3} lg={4}><InputGroup>
-        <Form.Control type="password" isInvalid={true} onChange={editAction} onKeyPress={keyAction}/>
+        <Form.Control 
+          data-testid="verify-password:input"
+          type="password" 
+          isInvalid={true} 
+          onChange={editAction} 
+          onKeyPress={keyAction}/>
         <Form.Control.Feedback type="invalid">
           Testing
         </Form.Control.Feedback>
