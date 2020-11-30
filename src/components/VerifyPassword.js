@@ -29,6 +29,7 @@ const VerifyPassword = props => {
           value={pass}
           type="password" 
           isInvalid={hasChecked && !passOk} 
+          isValid={hasChecked && passOk}
           onChange={editAction} 
           onKeyPress={keyAction}/>
         <Form.Control.Feedback type="invalid">

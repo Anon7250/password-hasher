@@ -60,12 +60,14 @@ test('complains if password is wrong and "Check" is clicked', () => {
   expect(btn).toBeInTheDocument();
   expect(inputBar).toBeInTheDocument();
   expect(inputBar.classList).not.toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 
   fireEvent.keyPress(inputBar, {key: 'A', code: 'KeyA', charCode: 123});
   fireEvent.change(inputBar, {target: {value: 'A'}});
   expect(btn.textContent).toEqual("Check");
   fireEvent.click(btn);
   expect(inputBar.classList).toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 });
 
 test('complains if password is wrong and user hit Enter', () => {
@@ -75,11 +77,13 @@ test('complains if password is wrong and user hit Enter', () => {
   expect(btn).toBeInTheDocument();
   expect(inputBar).toBeInTheDocument();
   expect(inputBar.classList).not.toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 
   fireEvent.keyPress(inputBar, {key: 'A', code: 'KeyA', charCode: 123});
   fireEvent.change(inputBar, {target: {value: 'A'}});
   fireEvent.keyPress(inputBar, {key: 'Enter', code: 'Enter', charCode: 123});
   expect(inputBar.classList).toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 });
 
 test('no complaint if password is correct and user hit Enter', () => {
@@ -89,15 +93,18 @@ test('no complaint if password is correct and user hit Enter', () => {
   expect(btn).toBeInTheDocument();
   expect(inputBar).toBeInTheDocument();
   expect(inputBar.classList).not.toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 
   fireEvent.keyPress(inputBar, {key: 'A', code: 'KeyA', charCode: 123});
   fireEvent.change(inputBar, {target: {value: 'A'}});
   fireEvent.keyPress(inputBar, {key: 'Enter', code: 'Enter', charCode: 123});
   expect(inputBar.classList).toContain("is-invalid");
+  expect(inputBar.classList).not.toContain("is-valid");
 
   fireEvent.change(inputBar, {target: {value: 'abc000'}});
   fireEvent.keyPress(inputBar, {key: 'Enter', code: 'Enter', charCode: 123});
   expect(inputBar.classList).not.toContain("is-invalid");
+  expect(inputBar.classList).toContain("is-valid");
 });
 
 test('calls props.onDelete when "Delete" is clicked', () => {
