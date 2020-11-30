@@ -7,11 +7,18 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
+import {toHash} from '../lib/hasher.js';
+
 const VerifyPassword = props => {
   const [hasChecked, setHasChecked] = React.useState(false);
+  const [pass, setPass] = React.useState("");
+  const passOk = toHash(props.hashMethod, props.salt, pass) === props.hash;
   const btnTxt = hasChecked ? "More.." : "Check";
   const btnAction = () => setHasChecked(true);
-  const editAction = txt => setHasChecked(false);
+  const editAction = event => {
+    setHasChecked(false);
+    setPass(event.target.value);
+  };
   const keyAction = event => event.key === "Enter" && btnAction();
   return (
     <Row>
@@ -19,8 +26,9 @@ const VerifyPassword = props => {
       <Col xs={3} lg={4}><InputGroup>
         <Form.Control 
           data-testid="verify-password:input"
+          value={pass}
           type="password" 
-          isInvalid={false} 
+          isInvalid={hasChecked && !passOk} 
           onChange={editAction} 
           onKeyPress={keyAction}/>
         <Form.Control.Feedback type="invalid">
