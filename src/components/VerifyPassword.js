@@ -20,18 +20,18 @@ const VerifyPassword = props => {
         <Form.Control 
           data-testid="verify-password:input"
           type="password" 
-          isInvalid={true} 
+          isInvalid={false} 
           onChange={editAction} 
           onKeyPress={keyAction}/>
         <Form.Control.Feedback type="invalid">
-          Testing
+          Wrong Password
         </Form.Control.Feedback>
       </InputGroup></Col>
       <Col xs={3} lg={2} className="action-col">
         <Button variant="primary" onClick={btnAction}>{btnTxt}</Button>
       </Col>
       <Col xs={3} lg={2} className="action-col">
-        <Button variant="danger">Delete</Button>
+        <Button variant="danger" onClick={props.onDelete}>Delete</Button>
       </Col>
     </Row>
   );
@@ -42,6 +42,7 @@ VerifyPassword.propTypes = {
   salt: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
   hashMethod: PropTypes.string.isRequired,
+  onDelete: PropTypes.func,
 }
 
 export default VerifyPassword;
