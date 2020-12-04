@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import uuid from 'uuid';
 
-import {addPassword} from '../actions';
+import {addPassword, showError} from '../actions';
 import {toHash} from '../lib/hasher.js';
 
 const AddPassword = props => {
@@ -16,6 +16,12 @@ const AddPassword = props => {
   const btnAction = () => {
     let salt = uuid.v4().toString();
     let hash = toHash("sha512;last4", salt, password.value);
+    let allPasswords = props.allPasswords || [];
+    if (allPasswords.some(x => x.name === name.value)) {
+      return props.dispatch(showError(
+        `There is already a password named "${name.value}". Please use a different name.`
+      ));
+    }
     return props.dispatch(addPassword(name.value, salt, hash));
   }
   return (
@@ -30,5 +36,9 @@ const AddPassword = props => {
   );
 }
 
+const mapStateToProps = (state, props) => ({
+  allPasswords: state.passwordList,
+});
+
 export const AddPasswordTestable = AddPassword;
-export default connect()(AddPassword);
+export default connect(mapStateToProps)(AddPassword);

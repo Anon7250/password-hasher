@@ -14,3 +14,20 @@ test('Sends addPassword action when "Add" button is clicked', () => {
   expect(action.type).toBe('ADD_PASSWORD');
   expect(action.name).toBe('');
 });
+
+test('Sends showError action when password names have duplicates', () => {
+  const mockDispatch = jest.fn();
+  const { getByText } = render(
+    <AddPasswordTestable dispatch={mockDispatch} allPasswords={[{name: ''}]}/>
+  );
+  const btn = getByText("Add");
+  expect(btn).toBeInTheDocument();
+  fireEvent.click(btn);
+
+  expect(mockDispatch).toHaveBeenCalledTimes(1);
+  let action = mockDispatch.mock.calls[0][0];
+  expect(action.type).toBe('SHOW_ERROR');
+  expect(action.msg).toBe(
+    'There is already a password named "". Please use a different name.'
+  );
+});

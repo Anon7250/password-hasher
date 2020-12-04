@@ -10,3 +10,6 @@ export const rmPassword = (name) => ({
   type: 'RM_PASSWORD',
   name,
 })
+
+export const dismissError = () => ({type: 'DISMISS_ERROR'})
+export const showError = (msg) => ({type: 'SHOW_ERROR', msg})

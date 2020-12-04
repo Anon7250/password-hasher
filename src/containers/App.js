@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import ErrorDialog from './ErrorDialog.js';
 import PasswordList from '../components/PasswordList.js';
 import './App.css';
 
@@ -17,6 +18,7 @@ const App = props => {
           <PasswordList content={props.content}/>
         </Col>
       </Row>
+      <ErrorDialog />
     </Container>
   );
 }
