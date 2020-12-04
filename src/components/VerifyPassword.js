@@ -8,6 +8,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
 import {toHash} from '../lib/hasher.js';
+import DeletePassword from '../containers/DeletePassword.js';
 
 const VerifyPassword = props => {
   const [hasChecked, setHasChecked] = React.useState(false);
@@ -40,7 +41,7 @@ const VerifyPassword = props => {
         <Button variant="primary" onClick={btnAction}>{btnTxt}</Button>
       </Col>
       <Col xs={3} lg={2} className="action-col">
-        <Button variant="danger" onClick={props.onDelete}>Delete</Button>
+        <DeletePassword name={props.name}/>
       </Col>
     </Row>
   );
@@ -51,7 +52,6 @@ VerifyPassword.propTypes = {
   salt: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
   hashMethod: PropTypes.string.isRequired,
-  onDelete: PropTypes.func,
 }
 
 export default VerifyPassword;

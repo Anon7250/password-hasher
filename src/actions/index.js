@@ -5,3 +5,8 @@ export const addPassword = (name, salt, hash, hashMethod="sha512;last4") => ({
   hash,
   hashMethod,
 })
+
+export const rmPassword = (name) => ({
+  type: 'RM_PASSWORD',
+  name,
+})
