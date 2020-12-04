@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { createStore } from 'redux';
 
 import PasswordList from './PasswordList';
+import { getColorStyle } from './PasswordList';
 
 const exampleContent = [
   {name: 'test123', salt: '8826aa59-4133-4074-a904-c9be256be784', hash: '3c1c', hashMethod: 'sha512;last4'},
@@ -19,4 +20,18 @@ test('renders password names of all contents', () => {
   const { getByText } = examplePasswordList();
   expect(getByText("test123")).toBeInTheDocument();
   expect(getByText("abc000")).toBeInTheDocument();
+});
+
+test('getColorStyle returns light color, dark text, with box-shadow', () => {
+  const styles = getColorStyle('9d4f');
+  expect(styles.color).toBe("black");
+  expect(styles.backgroundColor).toBe("#87c33ca0");
+  expect(styles.boxShadow).toBe("0.3em 0.1em #87c33c50");
+});
+
+test('getColorStyle returns dark color, light text, with box-shadow', () => {
+  const styles = getColorStyle('9b60');
+  expect(styles.color).toBe("white");
+  expect(styles.backgroundColor).toBe("#000000a0");
+  expect(styles.boxShadow).toBe("0.3em 0.1em #00000050");
 });
