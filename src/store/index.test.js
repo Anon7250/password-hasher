@@ -1,4 +1,4 @@
-import { updatePassword, getPasswords } from './index.js';
+import { clearPassword, updatePassword, getPasswords } from './index.js';
 
 test('updatePassword updates localStorage correctly', () => {
   window.localStorage.clear();
@@ -18,6 +18,19 @@ test('updatePassword then getPasswords', () => {
   expect(getPasswords()).toEqual([
     {name: "foobar1", hash: "abc1"},
     {name: "foobar2", hash: "abc2"},
+    {name: "foobar3", hash: "abc3"},
+  ])
+});
+
+test('updatePassword then clearPassword then getPasswords', () => {
+  window.localStorage.clear();
+  updatePassword({name: "foobar1", hash: "abc1"});
+  updatePassword({name: "foobar2", hash: "abc2"});
+  updatePassword({name: "foobar3", hash: "abc3"});
+  clearPassword("foobar");
+  clearPassword("foobar2");
+  expect(getPasswords()).toEqual([
+    {name: "foobar1", hash: "abc1"},
     {name: "foobar3", hash: "abc3"},
   ])
 });

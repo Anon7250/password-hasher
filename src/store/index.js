@@ -18,3 +18,9 @@ export const getPasswords = () => {
   }
   return ans
 }
+
+export const clearPassword = name => {
+  if (window && window.localStorage) {
+    window.localStorage.removeItem(`passwordv1-${name}`);
+  }
+}
