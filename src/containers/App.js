@@ -33,7 +33,7 @@ App.propTypes = {
 }
 
 const mapStateToProps = (state, props) => ({
-  content: state.passwordList,
+  content: state.passwordList.list,
 })
 
 export default connect(mapStateToProps)(App);

@@ -37,7 +37,7 @@ const AddPassword = props => {
 }
 
 const mapStateToProps = (state, props) => ({
-  allPasswords: state.passwordList,
+  allPasswords: state.passwordList.list,
 });
 
 export const AddPasswordTestable = AddPassword;
