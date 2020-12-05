@@ -11,5 +11,7 @@ export const rmPassword = (name) => ({
   name,
 })
 
+export const loadPasswords = content => ({type: 'LOAD_PASSWORDS', list: content})
+
 export const dismissError = () => ({type: 'DISMISS_ERROR'})
 export const showError = (msg) => ({type: 'SHOW_ERROR', msg})

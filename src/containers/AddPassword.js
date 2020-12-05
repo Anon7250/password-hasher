@@ -9,20 +9,23 @@ import uuid from 'uuid';
 
 import {addPassword, showError} from '../actions';
 import {toHash} from '../lib/hasher.js';
+import {updatePassword} from '../store';
 
 const AddPassword = props => {
   let name;
   let password;
   const btnAction = () => {
+    let hashMethod = "sha512;last4"
     let salt = uuid.v4().toString();
-    let hash = toHash("sha512;last4", salt, password.value);
+    let hash = toHash(hashMethod, salt, password.value);
     let allPasswords = props.allPasswords || [];
     if (allPasswords.some(x => x.name === name.value)) {
       return props.dispatch(showError(
         `There is already a password named "${name.value}". Please use a different name.`
       ));
     }
-    return props.dispatch(addPassword(name.value, salt, hash));
+    updatePassword({name: name.value, salt: salt, hash: hash, hashMethod: hashMethod})
+    props.dispatch(addPassword(name.value, salt, hash));
   }
   return (
     <Row>

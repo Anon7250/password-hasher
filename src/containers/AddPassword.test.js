@@ -15,6 +15,18 @@ test('Sends addPassword action when "Add" button is clicked', () => {
   expect(action.name).toBe('');
 });
 
+test('Updates window.localStorage when "Add" button is clicked', () => {
+  window.localStorage.clear();
+  const mockDispatch = jest.fn();
+  const { getByText } = render(<AddPasswordTestable dispatch={mockDispatch}/>);
+  const btn = getByText("Add");
+  expect(btn).toBeInTheDocument();
+  fireEvent.click(btn);
+  expect(window.localStorage.length).toBe(1);
+  expect(window.localStorage.key(0)).toBe('passwordv1-');
+  expect(JSON.parse(window.localStorage.getItem('passwordv1-')).name).toBe('');
+});
+
 test('Sends showError action when password names have duplicates', () => {
   const mockDispatch = jest.fn();
   const { getByText } = render(

@@ -11,7 +11,7 @@ export const getPasswords = () => {
   let ans = [];
   for (let i = 0; i < storage.length; i ++) {
     let key = storage.key(i);
-    if (key.indexOf("passwordv1-") != 0) continue;
+    if (key.indexOf("passwordv1-") !== 0) continue;
 
     let item = storage.getItem(key);
     ans.push(JSON.parse(item));

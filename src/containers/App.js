@@ -7,15 +7,22 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import ErrorDialog from './ErrorDialog.js';
+import {loadPasswords} from '../actions';
+import {getPasswords} from '../store';
 import PasswordList from '../components/PasswordList.js';
 import './App.css';
 
 const App = props => {
+  var maybePasswordList = (<PasswordList content={props.content}/>);
+  if (!props.contentLoaded) {
+    setTimeout(() => props.dispatch(loadPasswords(getPasswords())), 500);
+    maybePasswordList = (<pre>Loading...</pre>);
+  }
   return (
     <Container>
       <Row>
         <Col>
-          <PasswordList content={props.content}/>
+          {maybePasswordList}
         </Col>
       </Row>
       <ErrorDialog />
@@ -34,6 +41,7 @@ App.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   content: state.passwordList.list,
+  contentLoaded: state.passwordList.loaded,
 })
 
 export default connect(mapStateToProps)(App);
